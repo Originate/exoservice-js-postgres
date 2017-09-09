@@ -1,0 +1,7 @@
+{
+  "serviceRole": "postgres-service",
+  "serviceType": "postgres-service",
+  "description": "",
+  "author": "",
+  "modelName": "model"
+}

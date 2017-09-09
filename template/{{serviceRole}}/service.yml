@@ -1,0 +1,39 @@
+type: {{serviceType}}
+description: {{description}}
+author: {{author}}
+
+startup:
+  command: bin/start
+  online-text: online at port
+tests: node_modules/.bin/cucumber.js features/create.feature
+
+messages:
+  receives:
+    - create {{modelName}}
+    - delete {{modelName}}
+    - get {{modelName}}
+    - list {{modelName}}
+    - update {{modelName}}
+  sends:
+    - {{modelName}} created
+    - {{modelName}} deleted
+    - {{modelName}} listed
+    - {{modelName}} details
+    - {{modelName}} updated
+
+dependencies:
+  - name: postgres
+    version: 9.6.4
+    config:
+      dependency-environment:
+        POSTGRES_PASSWORD: mypassword
+        POSTGRES_USER: myuser
+        POSTGRES_DB: mydatabase
+      external-in-production: true
+      online-text: PostgreSQL init process complete
+      ports:
+        - '5432:5432'
+      service-environment:
+        DATABASE_PASSWORD: mypassword
+        DATABASE_USERNAME: myuser
+        DATABASE_NAME: mydatabase

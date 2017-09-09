@@ -1,0 +1,23 @@
+{
+  "name": "serviceRole",
+  "dependencies": {
+    "exoservice": "^0.26.1",
+    "observable-process": "^3.2.2",
+    "pg": "^7.3.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.8.2",
+    "sequelize-cli": "^2.8.0"
+  },
+  "description": "{{description}}",
+  "devDependencies": {
+    "chai": "4.1.1",
+    "cucumber": "3.0.0",
+    "dependency-lint": "5.0.1",
+    "exocom-mock": "0.26.1",
+    "js-yaml": "3.9.1",
+    "nitroglycerin": "1.1.2",
+    "port-reservation": "0.3.2",
+    "wait": "0.1.0"
+  },
+  "private": true
+}
