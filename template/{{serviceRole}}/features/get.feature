@@ -18,14 +18,16 @@ Feature: Get details for a {{modelName}}
     When receiving the message "get {{modelName}}" with the payload:
       """
       {
-        "id": "<%= idOf('one') %>"
+        "id": "<uuid of one>"
       }
       """
     Then the service replies with "{{modelName}} details" and the payload:
       """
       {
-        "id": /.+/,
-        "name": "one"
+        "createdAt": "<timestamp>",
+        "id": "<uuid>",
+        "name": "one",
+        "updatedAt": "<timestamp>"
       }
       """
 
@@ -37,9 +39,4 @@ Feature: Get details for a {{modelName}}
         "id": "zonk"
       }
       """
-    Then the service replies with "{{modelName}} not-found" and the payload:
-      """
-      {
-        "id": "zonk"
-      }
-      """
+    Then the service replies with "{{modelName}} not-found"

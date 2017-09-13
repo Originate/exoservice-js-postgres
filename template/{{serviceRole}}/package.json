@@ -15,6 +15,7 @@
     "dependency-lint": "5.0.1",
     "exocom-mock": "0.26.1",
     "js-yaml": "3.9.1",
+    "lowercase-keys": "^1.0.0",
     "nitroglycerin": "1.1.2",
     "port-reservation": "0.3.2",
     "wait": "0.1.0"

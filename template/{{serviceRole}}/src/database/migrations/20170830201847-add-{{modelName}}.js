@@ -2,7 +2,7 @@
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    return queryInterface.createTable('{{modelName}}', {
+    return queryInterface.createTable('{{modelName}}s', {
       id: {
         allowNull: false,
         type: Sequelize.STRING,
@@ -17,7 +17,7 @@ module.exports = {
         allowNull: true,
         type: Sequelize.DATE
       },
-      updatedAd: {
+      updatedAt: {
         allowNull: true,
         type: Sequelize.DATE
       }

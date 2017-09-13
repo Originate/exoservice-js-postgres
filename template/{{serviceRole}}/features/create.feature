@@ -20,8 +20,10 @@ Feature: Creating {{modelName}}s
     Then the service replies with "{{modelName}} created" and the payload:
       """
       {
-        "id": /\d+/,
-        "name": 'one'
+        "createdAt": "<timestamp>",
+        "id": "<uuid>",
+        "name": "one",
+        "updatedAt": "<timestamp>"
       }
       """
     And the service now contains the {{modelName}}s:

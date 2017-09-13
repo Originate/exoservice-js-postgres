@@ -1,4 +1,4 @@
-FROM nodesource/node
+FROM node
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 
 # These steps ensure that yarn install is only run when package.json changes

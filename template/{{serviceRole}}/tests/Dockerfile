@@ -1,4 +1,4 @@
-FROM nodesource/node
+FROM node
 ENV NODE_ENV="test"
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 

@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const sequelizeInstance = require('../sequelize_instance.js')
+const sequelizeInstance = require('./sequelize_instance.js')
 
 module.exports = sequelizeInstance.define('{{modelName}}', {
   name: {
@@ -11,13 +11,5 @@ module.exports = sequelizeInstance.define('{{modelName}}', {
      defaultValue: Sequelize.UUIDV4,
      primaryKey: true,
      type: Sequelize.STRING
-  },
-  createdAt: {
-    allowNull: true,
-    type: Sequelize.DATE
-  },
-  updatedAd: {
-    allowNull: true,
-    type: Sequelize.DATE
   }
 })

@@ -11,7 +11,7 @@ Feature: Listing all {{modelName}}s
 
   Scenario: no {{modelName}}s exist in the database
     When receiving the message "list {{modelName}}"
-    Then the service replies with "{{modelName}} listed" and the payload:
+    Then the service replies with "{{modelName}} list" and the payload:
       """
       []
       """
@@ -23,16 +23,20 @@ Feature: Listing all {{modelName}}s
       | one  |
       | two  |
     When receiving the message "list {{modelName}}"
-    Then the service replies with "{{modelName}} listed" and the payload:
+    Then the service replies with "{{modelName}} list" and the payload:
       """
       [
         {
+          "createdAt": "<timestamp>",
+          "id": "<uuid>",
           "name": "one",
-          "id": /\d+/
+          "updatedAt": "<timestamp>"
         },
         {
+          "createdAt": "<timestamp>",
+          "id": "<uuid>",
           "name": "two",
-          "id": /\d+/
+          "updatedAt": "<timestamp>"
         }
       ]
       """

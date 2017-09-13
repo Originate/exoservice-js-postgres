@@ -19,15 +19,17 @@ Feature: Updating a {{modelName}}
     When receiving the message "update {{modelName}}" with the payload:
       """
       {
-        "id": "<%= idOf('one') %>",
+        "id": "<uuid of one>",
         "name": "number one"
       }
       """
     Then the service replies with "{{modelName}} updated" and the payload:
       """
       {
-        "id": /.+/,
-        "name": "number one"
+        "createdAt": "<timestamp>",
+        "id": "<uuid>",
+        "name": "number one",
+        "updatedAt": "<timestamp>"
       }
       """
     And the service now contains the {{modelName}}s:
@@ -44,12 +46,7 @@ Feature: Updating a {{modelName}}
         "name": "a total zero"
       }
       """
-    Then the service replies with "{{modelName}} not-found" and the payload:
-      """
-      {
-        "id": "zero"
-      }
-      """
+    Then the service replies with "{{modelName}} not-found"
     And the service now contains the {{modelName}}s:
       | NAME |
       | one  |

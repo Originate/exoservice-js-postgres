@@ -18,13 +18,15 @@ Feature: Deleting a {{modelName}}
   Scenario: deleting an existing {{modelName}}
     When receiving the message "delete {{modelName}}" with the payload:
       """
-      { "id": "<%= idOf('one') %>" }
+      { "id": "<uuid of one>" }
       """
     Then the service replies with "{{modelName}} deleted" and the payload:
       """
       {
-        "id": /.+/,
-        "name": 'one'
+        "createdAt": "<timestamp>",
+        "id": "<uuid>",
+        "name": "one",
+        "updatedAt": "<timestamp>"
       }
       """
     And the service now contains the {{modelName}}s:
@@ -37,10 +39,7 @@ Feature: Deleting a {{modelName}}
       """
       { "id": "zonk" }
       """
-    Then the service replies with "{{modelName}} not-found" and the payload:
-      """
-      { "id": "zonk" }
-      """
+    Then the service replies with "{{modelName}} not-found"
     And the service now contains the {{modelName}}s:
       | NAME |
       | one  |

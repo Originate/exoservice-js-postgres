@@ -1,13 +1,18 @@
 const {defineSupportCode} = require('cucumber')
 const World = require('./world')
+const Model = require('../../src/database/model')
 
 defineSupportCode(function({After, setDefaultTimeout, setWorldConstructor}) {
 
-  setDefaultTimeout(1000)
+  setDefaultTimeout(5000)
   setWorldConstructor(World)
   After(function (_testCaseResult, done) {
-    this.process.kill()
-    this.exocom.close(done)
+    Model.destroy({truncate: true})
+      .then(() => {
+        this.process.kill()
+        this.exocom.close(done)
+      })
+      .catch(done)
   })
 
 })

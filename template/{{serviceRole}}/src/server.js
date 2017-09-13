@@ -4,36 +4,73 @@ const {bootstrap} = require('exoservice')
 
 bootstrap({
 
-  beforeAll: (done) => {
-    sequelizeInstance
-      .authenticate()
-      .then(() => {
-        console.log('Connected to postgres database');
-      })
-      .catch(err => {
-        console.error('Unable to connect to the postgres database:', err);
-      })
-      .then(done)
+  beforeAll: async (done) => {
+    try {
+      await sequelizeInstance.authenticate()
+      console.log('Connected to postgres database')
+    } catch (error) {
+      console.error('Unable to connect to the postgres database:', error)
+    }
+    done()
   },
 
-  'list {{modelName}}': (_, {reply}) => {
-    Model.findAll()
-      .then((instances) => {
-        reply('{{modelName}} list', instances)
-      })
-      .catch((err) => {
-        console.error("Error listing {{modelName}}s: ", err)
-      })
+  'get {{modelName}}': async ({id}, {reply}) => {
+    try {
+      const instance = await Model.findById(id)
+      if (instance) {
+        reply('{{modelName}} details', instance)
+      } else {
+        reply('{{modelName}} not-found', instance)
+      }
+    } catch (error) {
+      console.error("Error getting: ", err)
+    }
   },
 
-  'create {{modelName}}': (input, {reply}) => {
-    Model.create(tradeData)
-      .then((instance) => {
-        reply('{{modelName}} created', instance)
-      })
-      .catch((err) => {
-        console.error("Error creating {{modelName}}: ", err)
-      })
-  }
+  'list {{modelName}}': async (_, {reply}) => {
+    try {
+      const instances = await Model.findAll()
+      reply('{{modelName}} list', instances)
+    } catch (error) {
+      console.error("Error listing: ", err)
+    }
+  },
+
+  'create {{modelName}}': async (data, {reply}) => {
+    try {
+      const instance = await Model.create(data)
+      reply('{{modelName}} created', instance)
+    } catch (error) {
+      console.error("Error creating: ", err)
+    }
+  },
+
+  'update {{modelName}}': async (data, {reply}) => {
+    try {
+      const instance = await Model.findById(data.id)
+      if (instance) {
+        await instance.update(data)
+        reply('{{modelName}} updated', instance)
+      } else {
+        reply('{{modelName}} not-found')
+      }
+    } catch (error) {
+      console.error("Error updating: ", err)
+    }
+  },
+
+  'delete {{modelName}}': async ({id}, {reply}) => {
+    try {
+      const instance = await Model.findById(id)
+      if (instance) {
+        await instance.destroy()
+        reply('{{modelName}} deleted', instance)
+      } else {
+        reply('{{modelName}} not-found')
+      }
+    } catch (error) {
+      console.error("Error deleting: ", err)
+    }
+  },
 
 })
