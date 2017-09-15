@@ -1,20 +1,19 @@
 const sequelizeInstance = require('./database/sequelize_instance')
 const Model = require('./database/model')
-const {bootstrap} = require('exoservice')
+const { bootstrap } = require('exoservice')
 
 bootstrap({
-
-  beforeAll: async (done) => {
+  beforeAll: async done => {
     try {
       await sequelizeInstance.authenticate()
-      console.log('Connected to postgres database')
+      console.log('Connected to postgres database') // eslint-disable-line no-console
     } catch (error) {
-      console.error('Unable to connect to the postgres database:', error)
+      console.error('Unable to connect to the postgres database:', error) // eslint-disable-line no-console
     }
     done()
   },
 
-  'get {{modelName}}': async ({id}, {reply}) => {
+  'get {{modelName}}': async ({ id }, { reply }) => {
     try {
       const instance = await Model.findById(id)
       if (instance) {
@@ -23,29 +22,29 @@ bootstrap({
         reply('{{modelName}} not-found', instance)
       }
     } catch (error) {
-      console.error("Error getting: ", err)
+      console.error('Error getting: ', error) // eslint-disable-line no-console
     }
   },
 
-  'list {{modelName}}': async (_, {reply}) => {
+  'list {{modelName}}': async (_, { reply }) => {
     try {
       const instances = await Model.findAll()
       reply('{{modelName}} list', instances)
     } catch (error) {
-      console.error("Error listing: ", err)
+      console.error('Error listing: ', error) // eslint-disable-line no-console
     }
   },
 
-  'create {{modelName}}': async (data, {reply}) => {
+  'create {{modelName}}': async (data, { reply }) => {
     try {
       const instance = await Model.create(data)
       reply('{{modelName}} created', instance)
     } catch (error) {
-      console.error("Error creating: ", err)
+      console.error('Error creating: ', error) // eslint-disable-line no-console
     }
   },
 
-  'update {{modelName}}': async (data, {reply}) => {
+  'update {{modelName}}': async (data, { reply }) => {
     try {
       const instance = await Model.findById(data.id)
       if (instance) {
@@ -55,11 +54,11 @@ bootstrap({
         reply('{{modelName}} not-found')
       }
     } catch (error) {
-      console.error("Error updating: ", err)
+      console.error('Error updating: ', error) // eslint-disable-line no-console
     }
   },
 
-  'delete {{modelName}}': async ({id}, {reply}) => {
+  'delete {{modelName}}': async ({ id }, { reply }) => {
     try {
       const instance = await Model.findById(id)
       if (instance) {
@@ -69,8 +68,7 @@ bootstrap({
         reply('{{modelName}} not-found')
       }
     } catch (error) {
-      console.error("Error deleting: ", err)
+      console.error('Error deleting: ', error) // eslint-disable-line no-console
     }
   },
-
 })

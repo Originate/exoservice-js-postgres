@@ -1,5 +1,5 @@
 {
-  "name": "serviceRole",
+  "name": "{{serviceRole}}",
   "dependencies": {
     "exoservice": "^0.26.1",
     "observable-process": "^3.2.2",
@@ -10,14 +10,22 @@
   },
   "description": "{{description}}",
   "devDependencies": {
+    "async": "^2.5.0",
     "chai": "4.1.1",
     "cucumber": "3.0.0",
     "dependency-lint": "5.0.1",
+    "eslint": "^4.6.1",
+    "eslint-config-originate": "^2.0.0",
+    "eslint-config-prettier": "^2.4.0",
+    "eslint-plugin-filenames": "^1.2.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-prettier": "^2.2.0",
     "exocom-mock": "0.26.1",
     "js-yaml": "3.9.1",
     "lowercase-keys": "^1.0.0",
     "nitroglycerin": "1.1.2",
     "port-reservation": "0.3.2",
+    "prettier": "^1.7.0",
     "wait": "0.1.0"
   },
   "private": true

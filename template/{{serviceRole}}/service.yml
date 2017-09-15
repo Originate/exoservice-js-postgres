@@ -3,9 +3,7 @@ description: {{description}}
 author: {{author}}
 
 startup:
-  command: bin/start
   online-text: online at port
-tests: node_modules/.bin/cucumber.js
 
 messages:
   receives:
@@ -20,6 +18,11 @@ messages:
     - {{modelName}} list
     - {{modelName}} details
     - {{modelName}} updated
+
+development:
+  scripts:
+    run: bin/start
+    test: bin/test
 
 dependencies:
   - name: postgres
