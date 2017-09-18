@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 set -e
 
-node_modules/.bin/sequelize db:migrate
+sequelize db:migrate
 node src/server.js

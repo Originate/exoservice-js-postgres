@@ -1,8 +1,10 @@
 FROM node
-ENV NODE_ENV="test"
 
-# These steps ensure that yarn install is only run when package.json changes
-COPY ./package.json .
-COPY ./yarn.lock .
-RUN yarn install
-COPY . .
+WORKDIR /
+
+COPY package.json .
+COPY yarn.lock .
+RUN yarn --production=false
+ENV PATH="/node_modules/.bin:${PATH}"
+
+WORKDIR /mnt
