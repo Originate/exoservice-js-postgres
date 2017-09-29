@@ -8,3 +8,4 @@ RUN yarn --production=false
 ENV PATH="/node_modules/.bin:${PATH}"
 
 WORKDIR /mnt
+COPY . .
