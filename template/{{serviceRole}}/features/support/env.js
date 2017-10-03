@@ -6,7 +6,7 @@ defineSupportCode(({ After, setDefaultTimeout, setWorldConstructor }) => {
   setDefaultTimeout(5000)
   setWorldConstructor(World)
   After(function(_testCaseResult, done) {
-    Model.destroy({ truncate: true })
+    Model.destroy({ logging: false, truncate: true })
       .then(() => {
         this.process.kill()
         this.exocom.close(done)

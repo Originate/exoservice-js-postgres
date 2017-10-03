@@ -7,7 +7,7 @@ const portReservation = require('port-reservation')
 const yaml = require('js-yaml')
 const ObservableProcess = require('observable-process')
 const async = require('async')
-const lowercaseKeys = require('lowercase-keys')
+const camelCaseKeys = require('camelcase-keys')
 
 const serviceConfig = yaml.safeLoad(fs.readFileSync('service.yml'), 'utf8')
 
@@ -82,9 +82,9 @@ defineSupportCode(({ Given, When, Then }) => {
     done
   ) {
     this.exocom.onReceive(() => {
-      const receivedMessages = this.exocom.receivedMessages
-      expect(receivedMessages).to.have.length(1)
-      expect(receivedMessages[0].name).to.equal(expectedMessageName)
+      const actualMessage = this.exocom.receivedMessages[0]
+      const errorDetail = JSON.stringify(actualMessage)
+      expect(actualMessage.name).to.eql(expectedMessageName, errorDetail)
       done()
     })
   })
@@ -92,7 +92,7 @@ defineSupportCode(({ Given, When, Then }) => {
   Given(/^the service contains the {{modelName}}s:$/, function(table, done) {
     this.instanceNameToId = {}
     async.eachSeries(
-      table.hashes().map(lowercaseKeys),
+      table.hashes().map(camelCaseKeys),
       (data, cb) => {
         this.exocom.send({
           service: '{{serviceRole}}',
@@ -100,9 +100,10 @@ defineSupportCode(({ Given, When, Then }) => {
           payload: data,
         })
         this.exocom.onReceive(() => {
-          this.instanceNameToId[
-            data.name
-          ] = this.exocom.receivedMessages[0].payload.id
+          const replyMessage = this.exocom.receivedMessages[0]
+          const errorDetail = JSON.stringify(replyMessage)
+          expect(replyMessage.name).to.eql('{{modelName}} created', errorDetail)
+          this.instanceNameToId[data.name] = replyMessage.payload.id
           cb()
         })
       },
@@ -111,17 +112,17 @@ defineSupportCode(({ Given, When, Then }) => {
   })
 
   Then(/^the service replies with "([^"]*)" and the payload:$/, function(
-    message,
-    payload,
+    expectedName,
+    expectedPayloadStr,
     done
   ) {
-    const expectedPayload = JSON.parse(payload)
+    const expectedPayload = JSON.parse(expectedPayloadStr)
     this.exocom.onReceive(() => {
-      expect(this.exocom.receivedMessages[0].name).to.equal(message)
-      const actualPayload = normalizePayload(
-        this.exocom.receivedMessages[0].payload
-      )
-      expect(actualPayload).to.eql(expectedPayload)
+      const actualMessage = this.exocom.receivedMessages[0]
+      const errorDetail = JSON.stringify(actualMessage)
+      expect(actualMessage.name).to.eql(expectedName, errorDetail)
+      const actualPayload = normalizePayload(actualMessage.payload)
+      expect(actualPayload).to.eql(expectedPayload, errorDetail)
       done()
     })
   })
@@ -132,7 +133,9 @@ defineSupportCode(({ Given, When, Then }) => {
       name: 'list {{modelName}}',
     })
     this.exocom.onReceive(() => {
-      expect(this.exocom.receivedMessages[0].payload.count).to.equal(0)
+      const actualMessage = this.exocom.receivedMessages[0]
+      const errorDetail = JSON.stringify(actualMessage)
+      expect(actualMessage.payload.length).to.eql(0, errorDetail)
       done()
     })
   })
@@ -148,7 +151,7 @@ defineSupportCode(({ Given, When, Then }) => {
       )
       const expectedNames = table
         .hashes()
-        .map(lowercaseKeys)
+        .map(camelCaseKeys)
         .map(x => x.name)
       expect(actualNames).to.have.members(expectedNames)
       done()

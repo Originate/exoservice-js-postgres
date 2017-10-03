@@ -11,6 +11,7 @@
   "description": "{{description}}",
   "devDependencies": {
     "async": "^2.5.0",
+    "camelcase-keys": "^4.1.0",
     "chai": "4.1.1",
     "cucumber": "3.0.0",
     "dependency-lint": "5.0.1",
@@ -22,7 +23,6 @@
     "eslint-plugin-prettier": "^2.2.0",
     "exocom-mock": "0.26.1",
     "js-yaml": "3.9.1",
-    "lowercase-keys": "^1.0.0",
     "nitroglycerin": "1.1.2",
     "port-reservation": "0.3.2",
     "prettier": "^1.7.0",
