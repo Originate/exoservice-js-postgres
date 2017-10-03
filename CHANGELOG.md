@@ -1,3 +1,7 @@
+# 0.3.1 (2017-10-03)
+
+* Improve error message and test output
+
 # 0.3.0 (2017-09-29)
 
 * Update to `exosphere@0.26.0`
