@@ -1,3 +1,7 @@
+# 0.4.1 (2017-10-09)
+
+* fix `Dockerfile.prod`
+
 # 0.4.0 (2017-10-09)
 
 * update dependencies
