@@ -4,3 +4,6 @@ COPY package.json .
 COPY yarn.lock .
 RUN yarn
 COPY . .
+ENV PATH="/node_modules/.bin:${PATH}"
+
+CMD bin/start
