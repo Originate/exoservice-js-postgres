@@ -1,0 +1,15 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/buildpack-deps
+    working_directory: ~/exoservice-js-postgres
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: install exosphere
+          command: curl --output exo --location --fail https://github.com/Originate/exosphere/releases/download/v0.27.0/exo-linux-amd64 && chmod +x exo && sudo mv exo /usr/local/bin/
+      - run:
+          name: run tests
+          command: exo template test
