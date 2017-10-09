@@ -1,6 +1,7 @@
 const { defineSupportCode } = require('cucumber')
 const World = require('./world')
 const Model = require('../../src/database/model')
+const treeKill = require('tree-kill')
 
 defineSupportCode(({ After, setDefaultTimeout, setWorldConstructor }) => {
   setDefaultTimeout(5000)
@@ -8,8 +9,7 @@ defineSupportCode(({ After, setDefaultTimeout, setWorldConstructor }) => {
   After(function(_testCaseResult, done) {
     Model.destroy({ logging: false, truncate: true })
       .then(() => {
-        this.process.kill()
-        this.exocom.close(done)
+        treeKill(this.process.pid(), () => this.exocom.close(done))
       })
       .catch(done)
   })
