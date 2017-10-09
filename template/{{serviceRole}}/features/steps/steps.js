@@ -39,7 +39,7 @@ defineSupportCode(({ Given, When, Then }) => {
     )
   })
 
-  Given(/^an instance of this service$/, { timeout: 15 * 1000 }, function(
+  Given(/^an instance of this service$/, { timeout: 20 * 1000 }, function(
     done
   ) {
     const command = serviceConfig.development.scripts.run
@@ -52,7 +52,7 @@ defineSupportCode(({ Given, When, Then }) => {
       stdout: false,
       stderr: false,
     })
-    this.process.wait(serviceConfig.startup['online-text'], done)
+    this.process.wait(serviceConfig.startup['online-text'], done, 15 * 1000)
   })
 
   When(/^receiving the message "([^"]*)"$/, function(message) {
