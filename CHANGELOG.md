@@ -1,3 +1,8 @@
+# 0.4.0 (2017-10-09)
+
+* update dependencies
+* use `tree-kill` to properly kill the process after each tests
+
 # 0.3.1 (2017-10-03)
 
 * Improve error message and test output
