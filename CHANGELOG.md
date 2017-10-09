@@ -1,3 +1,7 @@
+# 0.4.2 (2017-10-09)
+
+* tests: give better error message on failure
+
 # 0.4.1 (2017-10-09)
 
 * fix `Dockerfile.prod`
